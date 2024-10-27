@@ -45,7 +45,7 @@ class CdkProjectStack(Stack):
                         container_name="hello-api-app-container",
                         container_port=8000
                     ),
-                    task_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_NAT),   
+                    task_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS),   
             )
             service.target_group.configure_health_check(
                 path="/hello/health"
