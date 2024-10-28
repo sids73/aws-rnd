@@ -69,7 +69,7 @@ This project demonstrates how to deploy a Python API using AWS ECS and AWS CDK.
 
 - Destroy the CDK stack to prevent unnecessary AWS charges:
     ```bash
-    cdk destroy
+    cdk destroy --all
     ```
 
 ## License
