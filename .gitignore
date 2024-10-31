@@ -1,0 +1,7 @@
+msk-iam-python-provisioning/.DS_Store
+msk-iam-python-provisioning/source.bat
+msk-iam-python-provisioning/aws_infra/.DS_Store
+msk-iam-python-provisioning/bastion-resources/.DS_Store
+msk-iam-python-provisioning/bastion-resources/pysamples/saslscram_consumer.py
+msk-iam-python-provisioning/bastion-resources/pysamples/saslscram_producer.py
+msk-iam-python-provisioning/bastion-resources/pysamples/saslscram_requirements.txt
