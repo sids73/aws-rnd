@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: msk-iam-auth
+  config:
+    import:
+      - "aws-parameterstore:/config/application/"
+
+  kafka:
+#    bootstrap-servers: "FETCHED_FROM_SPRING_CLOUD_AWS_PARAM_STORE"
+    security:
+      protocol: SASL_SSL
+    properties:
+      sasl:
+        mechanism: AWS_MSK_IAM
+        jaas:
+          config: "software.amazon.msk.auth.iam.IAMLoginModule required;"
+        client:
+          callback:
+            handler:
+              class: software.amazon.msk.auth.iam.IAMClientCallbackHandler
+
+kafka-topics:
+  common-settings:
+    default-partitions: 2
+    default-replicas: 2
+  topics:
+    english-greetings: greetings.english
+    multilingual-greetings: greetings.multilingual
+
+logging:
+  level:
+    root: info
