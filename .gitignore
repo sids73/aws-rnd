@@ -5,3 +5,5 @@ msk-iam-python-provisioning/bastion-resources/.DS_Store
 msk-iam-python-provisioning/bastion-resources/pysamples/saslscram_consumer.py
 msk-iam-python-provisioning/bastion-resources/pysamples/saslscram_producer.py
 msk-iam-python-provisioning/bastion-resources/pysamples/saslscram_requirements.txt
+msk-iam-spring-kafka-provisioning/aws-infra/source.bat
+msk-iam-spring-kafka-provisioning/aws-infra/aws_infra/.DS_Store
