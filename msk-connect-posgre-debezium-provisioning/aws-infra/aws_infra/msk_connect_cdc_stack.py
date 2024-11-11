@@ -228,19 +228,19 @@ class MskConnectCdcStack(Stack):
                 provisioned_capacity={ "mcuCount": 2, "workerCount": 1 }
             ),
             connector_configuration={
-              "tasks.max": "1",
-              "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-              "plugin.name": "pgoutput",
-              "slot.name": "debezium",
-              "name": "ecommerce-cdc",
+              "tasks.max": "1",# number of tasks
+              "connector.class": "io.debezium.connector.postgresql.PostgresConnector", # connector class 
+              "plugin.name": "pgoutput", # plugin name
+              "slot.name": "debezium", # logical replication slot
+              "name": "ecommerce-cdc", # name of the connector
               "database.user": "debezium" ,
               "database.password": "D3bezium",
               "database.dbname": "ecommerce",
               "database.hostname": dbhost,
               "database.port": str(dbport),
-              "topic.prefix": "ecommerce-cdc",
-              "schema.include.list": "public",
-              "table.include.list": "public.customers,public.orders",
+              "topic.prefix": "ecommerce-cdc", # prefix for the topics
+              "schema.include.list": "public", # comma-separated list of schemas to include
+              "table.include.list": "public.customers,public.orders", # comma-separated list of tables to include
             },
             connector_description="Debezium Aurora Postgres for Ecommerce Change Data Capture",
             kafka_cluster=mkc.CfnConnector.KafkaClusterProperty(
