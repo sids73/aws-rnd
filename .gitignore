@@ -7,3 +7,13 @@ msk-iam-python-provisioning/bastion-resources/pysamples/saslscram_producer.py
 msk-iam-python-provisioning/bastion-resources/pysamples/saslscram_requirements.txt
 msk-iam-spring-kafka-provisioning/aws-infra/source.bat
 msk-iam-spring-kafka-provisioning/aws-infra/aws_infra/.DS_Store
+msk-connect-posgre-debezium-provisioning/aws-infra/.DS_Store
+msk-connect-posgre-debezium-provisioning/aws-infra/source.bat
+msk-connect-posgre-debezium-provisioning/aws-infra/aws_infra/.DS_Store
+msk-connect-posgre-debezium-provisioning/aws-infra/aws_infra/resources/.DS_Store
+msk-sasl-scram-python-provisioning/AWSCLIV2.pkg
+msk-sasl-scram-python-provisioning/source.bat
+msk-sasl-scram-python-provisioning/aws_infra/.DS_Store
+msk-sasl-scram-spring-kafka-provisioning/aws-infra/.DS_Store
+msk-sasl-scram-spring-kafka-provisioning/aws-infra/source.bat
+msk-sasl-scram-spring-kafka-provisioning/aws-infra/aws_infra/.DS_Store
