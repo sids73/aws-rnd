@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: msk-gsr-spring-kafka-consumer
+
+  kafka:
+    bootstrap-servers: "/config/application/spring.kafka.bootstrap-servers"
+    security:
+      protocol: SASL_SSL
+    properties:
+      sasl:
+        mechanism: AWS_MSK_IAM
+        jaas:
+          config: "software.amazon.msk.auth.iam.IAMLoginModule required;"
+        client:
+          callback:
+            handler:
+              class: software.amazon.msk.auth.iam.IAMClientCallbackHandler
+
+kafka-topics:
+  common-settings:
+    default-partitions: 2
+    default-replicas: 2
+    registry-name: "OVERRIDEN_BY_CONTAINER_ENVIRONMENT_VARIABLE"
+  topics:
+    chat-messages: chat-messages
+    chat-messages-copy: chat-messages-copy
+
+logging:
+  level:
+    root: info
+    com:
+      amazonaws:
+        services: trace

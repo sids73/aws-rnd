@@ -17,3 +17,17 @@ msk-sasl-scram-python-provisioning/aws_infra/.DS_Store
 msk-sasl-scram-spring-kafka-provisioning/aws-infra/.DS_Store
 msk-sasl-scram-spring-kafka-provisioning/aws-infra/source.bat
 msk-sasl-scram-spring-kafka-provisioning/aws-infra/aws_infra/.DS_Store
+msk-schema-registry/aws-infra/tests/unit/__init__.py
+msk-schema-registry/aws-infra/tests/__init__.py
+msk-operations-autoscaling-storage/aws-infra/.DS_Store
+msk-operations-cluster-expansion/aws-infra/.DS_Store
+msk-operations-cluster-expansion/aws-infra/AWSCLIV2.pkg
+msk-operations-autoscaling-storage/aws-infra/tests/__init__.py
+msk-operations-autoscaling-storage/aws-infra/tests/unit/__init__.py
+msk-operations-cluster-expansion/aws-infra/aws_infra/__init__.py
+msk-operations-cluster-expansion/aws-infra/aws_infra/.DS_Store
+msk-operations-cluster-expansion/aws-infra/bastion-resources/.DS_Store
+msk-operations-cluster-expansion/aws-infra/tests/__init__.py
+msk-operations-cluster-expansion/aws-infra/tests/unit/__init__.py
+msk-schema-registry/aws-infra/aws_apps/__init__.py
+msk-schema-registry/msk-gsr-spring-kafka-consumer/.DS_Store

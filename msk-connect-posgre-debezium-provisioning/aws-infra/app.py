@@ -57,7 +57,7 @@ aurorapg_stack = AuroraPgStack(app, 'AuroraPgStack', env=env, vpc=network_stack.
 private_iam_msk = MskWithIamAuthStack(app, 'IamMskStack', vpc=network_stack.vpc, env=env)
 
 # aws kafka get-bootstrap-brokers --cluster-arn THE-CLUSTER-ARN
-BOOTSTRAP_SERVERS="b-2.iamexample.qtcwmm.c13.kafka.us-east-1.amazonaws.com:9098,b-1.iamexample.qtcwmm.c13.kafka.us-east-1.amazonaws.com:9098"
+BOOTSTRAP_SERVERS="b-1.iamexample.6y5vyj.c13.kafka.us-east-1.amazonaws.com:9098,b-2.iamexample.6y5vyj.c13.kafka.us-east-1.amazonaws.com:9098"
 
 # aws rds describe-db-clusters --query 'DBClusters[].Endpoint'
 DB_HOST="aurorapg.cluster-c7wiykeykyl8.us-east-1.rds.amazonaws.com"
@@ -70,7 +70,9 @@ cdc_stack = MskConnectCdcStack(app, 'MskConnectCdcStack',
     dbhost=DB_HOST,
     dbport=int(DB_PORT),
     vpc=network_stack.vpc,
-    env=env
+    env=env,
+    worker_cfg= WorkerConfig(arn="arn:aws:kafkaconnect:us-east-1:429280597010:worker-configuration/ecommerce-cdc-v1/ae976dc5-2a6f-4dc2-b191-b253c3919dae-4",
+                             revision=1)
  )
 
 app.synth()

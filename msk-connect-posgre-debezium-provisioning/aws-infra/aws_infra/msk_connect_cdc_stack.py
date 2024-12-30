@@ -79,7 +79,7 @@ class MskConnectCdcStack(Stack):
 
         # create worker configuration
         if worker_cfg is None or worker_cfg.empty():
-            worker_cfg = self.make_worker_config(version=1)
+            worker_cfg = self.make_worker_config(version=2)
 
         # create connector
         connector = self.make_connector(
