@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaAdmin;
@@ -39,6 +40,7 @@ public class KafkaConfig {
     String awsRegion;
 
     @Bean
+    @Description("This Helps create the chat-messages topic if it does not already exist")
     public KafkaAdmin.NewTopics createTopics() {
         return new KafkaAdmin.NewTopics(
                 TopicBuilder.name(chatMessagesTopic)

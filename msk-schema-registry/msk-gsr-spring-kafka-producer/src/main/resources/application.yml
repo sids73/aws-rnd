@@ -15,7 +15,7 @@ spring:
           callback:
             handler:
               class: software.amazon.msk.auth.iam.IAMClientCallbackHandler
-
+# The producer will use the chat-messages topic to send messages
 kafka-topics:
   common-settings:
     default-partitions: 2

@@ -37,9 +37,9 @@ public class MskGsrConsumerApplication {
 		JsonDataWithSchema json = record.value();
 		try {
 			var chatMsg = new ObjectMapper().readValue(json.getPayload(), ChatMessage.class);
-			log.info("Consumed copied original message '{}'", chatMsg);
+			log.info("Consumed transported original message '{}'", chatMsg);
 		} catch (JsonProcessingException e) {
-			log.error("Failed consuming message", e);
+			log.error("Failed consuming transported message", e);
 			throw new RuntimeException(e.getMessage());
 		}
 		
@@ -48,14 +48,14 @@ public class MskGsrConsumerApplication {
 
 	@KafkaListener(topics = "${kafka-topics.topics.chat-messages}",
 			groupId = "${spring.application.name}", containerFactory = "rawListenerContainerFactory")
-	void copyMessage(ConsumerRecord<String, byte[]> record) {
+	void transportRawMessage(ConsumerRecord<String, byte[]> record) {
 		byte[] rawData = record.value();
 		kafkaTemplate.send(kafkaConfig.chatMessagesCopyTopic, rawData)
 				.whenComplete((result, exception) -> {
 					if (exception != null) {
-						log.error(String.format("Failed to copy message {}", rawData), exception);
+						log.error(String.format("Failed to transport message {}", rawData), exception);
 					} else {
-						log.info("Copied message '{}'", rawData);
+						log.info("Transporter transported raw chat message '{}'", rawData);
 					}
 				});
 	}

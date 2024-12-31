@@ -23,6 +23,7 @@ kafka-topics:
     registry-name: "OVERRIDEN_BY_CONTAINER_ENVIRONMENT_VARIABLE"
   topics:
     chat-messages: chat-messages
+    #we will use this topic to shallow copy the messages from chat-messages topic
     chat-messages-copy: chat-messages-copy
 
 logging:

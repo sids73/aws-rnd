@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-jammy as builder
+FROM --platform=linux/amd64 eclipse-temurin:17-jdk-jammy AS builder
 WORKDIR /builder
 
 COPY settings.gradle build.gradle ./

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.ConsumerFactory;
@@ -50,6 +51,7 @@ public class KafkaConfig {
     String chatMessagesCopyTopic;
 
     @Bean
+    @Description("Helps create the chat-messages-copy topic if it does not exist")
     public KafkaAdmin.NewTopics createTopics() {
         return new KafkaAdmin.NewTopics(
                 TopicBuilder.name(chatMessagesCopyTopic)
@@ -107,6 +109,7 @@ public class KafkaConfig {
     }
 
     @Bean
+    @Description("Kafka consumer factory that will consume raw bytes from a topic in an effort to 'Shallow' copy messages")
     public ConsumerFactory<String, byte[]> rawConsumerFactory(KafkaProperties kafkaProps) {
         return new DefaultKafkaConsumerFactory<>(
           consumerConfigs(kafkaProps),
@@ -125,6 +128,8 @@ public class KafkaConfig {
     }
 
     @Bean
+    @Description("A Kafka listener container factory that will consume raw bytes from a topic in an effort to 'Shallow' copy messages")
+    // What I mean by "Shallow" copy is that the message is not deserialized and reserialized, it is simply copied from one topic to another
     public ConcurrentKafkaListenerContainerFactory<String, byte[]> rawListenerContainerFactory(
             KafkaProperties kafkaProps) {
         var factory = new ConcurrentKafkaListenerContainerFactory<String, byte[]>();
