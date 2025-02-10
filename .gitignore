@@ -31,3 +31,4 @@ msk-operations-cluster-expansion/aws-infra/tests/__init__.py
 msk-operations-cluster-expansion/aws-infra/tests/unit/__init__.py
 msk-schema-registry/aws-infra/aws_apps/__init__.py
 msk-schema-registry/msk-gsr-spring-kafka-consumer/.DS_Store
+.DS_Store

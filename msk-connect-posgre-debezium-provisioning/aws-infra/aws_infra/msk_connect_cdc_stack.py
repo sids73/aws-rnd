@@ -79,7 +79,7 @@ class MskConnectCdcStack(Stack):
 
         # create worker configuration
         if worker_cfg is None or worker_cfg.empty():
-            worker_cfg = self.make_worker_config(version=2)
+            worker_cfg = self.make_worker_config(version=5)
 
         # create connector
         connector = self.make_connector(
@@ -166,6 +166,13 @@ class MskConnectCdcStack(Stack):
                 f"arn:aws:kafkaconnect:{Aws.REGION}:{Aws.ACCOUNT_ID}:*"
             ]
         ))
+        role.add_to_policy(iam.PolicyStatement(
+            effect=iam.Effect.ALLOW,
+            actions=["secretsmanager:GetResourcePolicy", "secretsmanager:GetSecretValue", "secretsmanager:DescribeSecret", "secretsmanager:ListSecretVersionIds"],
+            resources=[
+                f"arn:aws:secretsmanager:{Aws.REGION}:{Aws.ACCOUNT_ID}:secret:application/debezium_postgre_kafka_sink-JRgqTc"
+            ]
+        ))
         return role
 
     # because WorkerConfigurations cannot be deleted then you might want to
@@ -179,7 +186,10 @@ class MskConnectCdcStack(Stack):
         props = '\n'.join([
           "offset.storage.topic=ecommerce-cdc",
           "key.converter=org.apache.kafka.connect.json.JsonConverter",
-          "value.converter=org.apache.kafka.connect.json.JsonConverter"
+          "value.converter=org.apache.kafka.connect.json.JsonConverter",
+          "config.providers=secretsmanager",
+          "config.providers.secretsmanager.class=com.amazonaws.kafka.config.providers.SecretsManagerConfigProvider"
+         # "config.providers.secretsmanager.param.region=us-east-1"
         ])
 
         worker_cfg = cr.AwsCustomResource(
@@ -233,14 +243,14 @@ class MskConnectCdcStack(Stack):
               "plugin.name": "pgoutput", # plugin name
               "slot.name": "debezium", # logical replication slot
               "name": "ecommerce-cdc", # name of the connector
-              "database.user": "debezium" ,
-              "database.password": "D3bezium",
               "database.dbname": "ecommerce",
-              "database.hostname": dbhost,
-              "database.port": str(dbport),
+              "database.hostname": "${secretsmanager:application/debezium_postgre_kafka_sink:host}", # reference to the secret in secrets manager containing the hostname
+              "database.port": "${secretsmanager:application/debezium_postgre_kafka_sink:port}",
               "topic.prefix": "ecommerce-cdc", # prefix for the topics
               "schema.include.list": "public", # comma-separated list of schemas to include
               "table.include.list": "public.customers,public.orders", # comma-separated list of tables to include
+              "database.user": "${secretsmanager:application/debezium_postgre_kafka_sink:username}",  # database user
+              "database.password": "${secretsmanager:application/debezium_postgre_kafka_sink:password}", # reference to the secret in secrets manager containing the password
             },
             connector_description="Debezium Aurora Postgres for Ecommerce Change Data Capture",
             kafka_cluster=mkc.CfnConnector.KafkaClusterProperty(
@@ -252,7 +262,7 @@ class MskConnectCdcStack(Stack):
                     }
                 )
             ),
-            kafka_connect_version="2.7.1",
+            kafka_connect_version="3.7.x",
             service_execution_role_arn=role.role_arn,
             plugins=[mkc.CfnConnector.PluginProperty(
                 custom_plugin={
